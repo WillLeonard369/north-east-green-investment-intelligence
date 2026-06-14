@@ -12,36 +12,49 @@ SOURCE_FILE = (
     / "regionalgrossvalueaddedbalancedbyindustryandallinternationalterritoriallevelsitlregions.xlsx"
 )
 
+REGIONS = {
+    "TLC": "North East",
+    "TLD": "North West",
+}
 
-def transform_north_east_gva() -> pd.DataFrame:
+
+def transform_regional_gva() -> pd.DataFrame:
     dataframe = pd.read_excel(
         SOURCE_FILE,
         sheet_name="Table 1a",
         header=1,
     )
 
-    north_east_total = dataframe[
-        (dataframe["ITL code"] == "TLC")
+    regional_totals = dataframe[
+        dataframe["ITL code"].isin(REGIONS)
         & (dataframe["SIC07 code"] == "Total")
-    ].iloc[0]
+    ].copy()
 
     year_columns = [
-        column for column in dataframe.columns
+        column
+        for column in dataframe.columns
         if str(column).isdigit()
     ]
 
-    output = pd.DataFrame(
-        {
-            "geography_code": "TLC",
-            "geography_name": "North East",
-            "indicator_code": "REAL_GVA_INDEX",
-            "period": [str(year) for year in year_columns],
-            "frequency": "annual",
-            "value": [north_east_total[year] for year in year_columns],
-            "unit": "index_2022_100",
-        }
-    )
+    output_rows = []
 
+    for _, row in regional_totals.iterrows():
+        geography_code = row["ITL code"]
+
+        for year in year_columns:
+            output_rows.append(
+                {
+                    "geography_code": geography_code,
+                    "geography_name": REGIONS[geography_code],
+                    "indicator_code": "REAL_GVA_INDEX",
+                    "period": str(year),
+                    "frequency": "annual",
+                    "value": row[year],
+                    "unit": "index_2022_100",
+                }
+            )
+
+    output = pd.DataFrame(output_rows)
     output["value"] = pd.to_numeric(output["value"], errors="coerce")
 
     if output["value"].isna().any():
@@ -55,6 +68,14 @@ def transform_north_east_gva() -> pd.DataFrame:
     return output
 
 
+def transform_north_east_gva() -> pd.DataFrame:
+    dataframe = transform_regional_gva()
+
+    return dataframe[
+        dataframe["geography_code"] == "TLC"
+    ].reset_index(drop=True)
+
+
 if __name__ == "__main__":
-    result = transform_north_east_gva()
+    result = transform_regional_gva()
     print(result.to_string(index=False))

@@ -1,4 +1,4 @@
-CREATE VIEW IF NOT EXISTS north_east_gva AS
+CREATE VIEW IF NOT EXISTS regional_gva AS
 SELECT
     g.geography_code,
     g.geography_name,
@@ -10,5 +10,9 @@ SELECT
 FROM economic_observations AS e
 JOIN geography AS g
     ON e.geography_id = g.geography_id
-WHERE g.geography_code = 'TLC'
-  AND e.indicator_code = 'REAL_GVA_INDEX';
+WHERE e.indicator_code = 'REAL_GVA_INDEX';
+
+CREATE VIEW IF NOT EXISTS north_east_gva AS
+SELECT *
+FROM regional_gva
+WHERE geography_code = 'TLC';
