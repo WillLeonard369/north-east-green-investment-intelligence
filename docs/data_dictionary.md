@@ -29,3 +29,18 @@ Stores regional economic indicators in long format.
 | Workbook sheet | `Table 1a` |
 | Industry coverage | All industries |
 | Purpose | Measures changes in the volume of regional economic output over time |
+
+
+## Indicator: `MANUFACTURING_GVA_INDEX`
+
+| Attribute | Description |
+|---|---|
+| Geography | Tees Valley; Northumberland, Durham and Tyne & Wear |
+| Geography codes | `TLC3`; `TLC4` |
+| Frequency | Annual |
+| Coverage | 1998–2023 |
+| Unit | Chained-volume-measures index, 2022 = 100 |
+| Source | ONS Regional gross value added balanced by industry |
+| Workbook sheet | `Table 2a` |
+| Industry coverage | Manufacturing |
+| Purpose | Compares changes in manufacturing output across the two North East ITL2 subregions |
