@@ -70,3 +70,34 @@ employment and productivity indicators;
 additional UK regions for comparison;
 company-level and transaction data;
 green investment and project data.
+
+## Subregional manufacturing extension
+
+The project also includes a separate pipeline for manufacturing GVA at ITL2 level.
+
+The transformation script:
+
+```text
+src/ne_investment/transform/subregional_manufacturing.py
+
+performs the following steps:
+
+reads Table 2a from the ONS workbook;
+filters for Tees Valley (TLC3);
+filters for Northumberland, Durham and Tyne & Wear (TLC4);
+selects the manufacturing industry;
+converts annual columns into long format;
+assigns the indicator code MANUFACTURING_GVA_INDEX;
+validates missing values and duplicates.
+
+The loader script:
+
+src/ne_investment/load/subregional_manufacturing.py
+
+stores both subregional series in the SQLite database.
+
+The resulting SQL view:
+
+subregional_manufacturing_gva
+
+supports comparison of manufacturing output trends across the two North East ITL2 areas.
