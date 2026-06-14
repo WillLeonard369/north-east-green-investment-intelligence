@@ -35,7 +35,14 @@ It currently:
 
 ![Regional GVA Comparison](reports/figures/regional_gva_comparison.png)
 
-Both series are ONS chained-volume-measures indices where 2022 equals 100. The comparison shows relative growth paths, not the absolute size of each regional economy.
+Both series are ONS chained-volume-measures indices where 2022 equals 100. The comparison shows relative growth paths, not the absolute size of 
+each regional economy.
+
+### Manufacturing GVA by North East subregion
+
+![Subregional Manufacturing GVA Comparison](reports/figures/subregional_manufacturing_gva_comparison.png)
+
+This chart compares manufacturing output trends in Tees Valley with Northumberland, Durham and Tyne & Wear. Both series are indexed to 2022 = 100, so the chart shows relative performance rather than absolute economic size.
 
 ## Repository structure
 
