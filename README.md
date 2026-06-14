@@ -27,9 +27,15 @@ It currently:
 
 ## Current output
 
+### North East real GVA index
+
 ![North East Real GVA Index](reports/figures/north_east_gva_index.png)
 
-The series is an ONS chained-volume-measures index where 2022 equals 100.
+### North East vs North West comparison
+
+![Regional GVA Comparison](reports/figures/regional_gva_comparison.png)
+
+Both series are ONS chained-volume-measures indices where 2022 equals 100. The comparison shows relative growth paths, not the absolute size of each regional economy.
 
 ## Repository structure
 
@@ -121,3 +127,4 @@ Planned sources:
 Raw source files and the local SQLite database are not stored in the public repository. The repository contains the code, schema and documentation required to reproduce the analysis.
 
 This project is an independent research project and does not constitute investment advice.
+
