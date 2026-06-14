@@ -101,6 +101,12 @@ Run the automated tests:
 ```bash
 python -m pytest
 ```
+### Run the full pipeline
+
+To create the database and load all currently supported datasets in the correct order, run:
+
+```bash
+python -m src.ne_investment.load.run_pipeline
 
 ## Planned development
 
