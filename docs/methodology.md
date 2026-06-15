@@ -90,6 +90,39 @@ converts annual columns into long format;
 assigns the indicator code MANUFACTURING_GVA_INDEX;
 validates missing values and duplicates.
 
+## Regional labour-market snapshot extension
+
+The project includes a current labour-market comparison for the North East and North West using the ONS S01 Regional labour market summary.
+
+The transformation script:
+
+```text
+src/ne_investment/transform/regional_labour_market_snapshot.py
+
+performs the following steps:
+
+reads the S01.1 worksheet from the ONS labour-market workbook;
+identifies the North East (E12000001) and North West (E12000002);
+keeps the first headline row for each region;
+extracts economic activity, employment, unemployment and economic inactivity rates;
+assigns standardised internal indicator codes;
+records the period as 2026-Q1;
+validates missing values and duplicate observations.
+
+The loader script:
+
+src/ne_investment/load/regional_labour_market_snapshot.py
+
+stores the eight labour-market observations in the SQLite database.
+
+The resulting SQL view:
+
+regional_labour_market_snapshot
+
+supports comparison of current labour-market conditions between the two regions.
+
+This is currently a snapshot rather than a historical time series. A later stage will add comparable observations across multiple periods.
+
 The loader script:
 
 src/ne_investment/load/subregional_manufacturing.py
