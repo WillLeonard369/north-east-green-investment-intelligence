@@ -44,3 +44,22 @@ FROM economic_observations AS e
 JOIN geography AS g
     ON e.geography_id = g.geography_id
 WHERE e.indicator_code = 'REAL_GVA_GBP_MILLION';
+
+CREATE VIEW IF NOT EXISTS regional_labour_market_snapshot AS
+SELECT
+    g.geography_code,
+    g.geography_name,
+    e.indicator_code,
+    e.period,
+    e.value,
+    e.unit,
+    e.frequency
+FROM economic_observations AS e
+JOIN geography AS g
+    ON e.geography_id = g.geography_id
+WHERE e.indicator_code IN (
+    'ECONOMIC_ACTIVITY_RATE',
+    'EMPLOYMENT_RATE',
+    'UNEMPLOYMENT_RATE',
+    'ECONOMIC_INACTIVITY_RATE'
+);
