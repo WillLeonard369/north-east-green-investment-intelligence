@@ -38,6 +38,12 @@ It currently:
 Both series are ONS chained-volume-measures indices where 2022 equals 100. The comparison shows relative growth paths, not the absolute size of 
 each regional economy.
 
+### Real GVA levels: North East vs North West
+
+![Regional Real GVA Levels](reports/figures/regional_real_gva_levels.png)
+
+This chart compares the actual scale of the two regional economies using real GVA measured in £ billions at 2022 prices.
+
 ### Manufacturing GVA by North East subregion
 
 ![Subregional Manufacturing GVA Comparison](reports/figures/subregional_manufacturing_gva_comparison.png)
