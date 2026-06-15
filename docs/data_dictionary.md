@@ -58,3 +58,25 @@ Stores regional economic indicators in long format.
 | Workbook sheet | `Table 1b` |
 | Industry coverage | All industries |
 | Purpose | Compares the real economic size of the North East and North West over time |
+
+## Labour-market snapshot indicators
+
+| Indicator code | Description |
+|---|---|
+| `ECONOMIC_ACTIVITY_RATE` | Share of the relevant working-age population that is economically active |
+| `EMPLOYMENT_RATE` | Share of the relevant working-age population in employment |
+| `UNEMPLOYMENT_RATE` | Share of economically active people who are unemployed |
+| `ECONOMIC_INACTIVITY_RATE` | Share of the relevant working-age population that is economically inactive |
+
+### Source metadata
+
+| Attribute | Description |
+|---|---|
+| Geography | North East; North West |
+| Geography codes | `E12000001`; `E12000002` |
+| Frequency | Quarterly snapshot |
+| Period | January–March 2026 |
+| Unit | Percent |
+| Source | ONS S01 Regional labour market summary |
+| Workbook sheet | `S01.1` |
+| Purpose | Compares current regional labour-market conditions across the North East and North West |
