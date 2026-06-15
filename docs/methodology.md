@@ -101,3 +101,34 @@ The resulting SQL view:
 subregional_manufacturing_gva
 
 supports comparison of manufacturing output trends across the two North East ITL2 areas.
+
+## Regional real GVA levels extension
+
+The project also includes a pipeline for comparing the actual economic size of the North East and North West.
+
+The transformation script:
+
+```text
+src/ne_investment/transform/regional_gva_levels.py
+
+performs the following steps:
+
+reads Table 1b from the ONS workbook;
+filters for the North East (TLC) and North West (TLD);
+selects the all-industries total;
+converts annual columns into long format;
+assigns the indicator code REAL_GVA_GBP_MILLION;
+records values in £ million using chained-volume measures at 2022 prices;
+validates missing values and duplicates.
+
+The loader script:
+
+src/ne_investment/load/regional_gva_levels.py
+
+stores the two regional series in the SQLite database.
+
+The resulting SQL view:
+
+regional_gva_levels
+
+supports comparison of the absolute real GVA levels of the two regional economies over time.
