@@ -50,6 +50,12 @@ This chart compares the actual scale of the two regional economies using real GV
 
 This chart compares manufacturing output trends in Tees Valley with Northumberland, Durham and Tyne & Wear. Both series are indexed to 2022 = 100, so the chart shows relative performance rather than absolute economic size.
 
+### Regional labour-market snapshot
+
+![Regional Labour Market Snapshot](reports/figures/regional_labour_market_snapshot.png)
+
+This chart compares economic activity, employment, unemployment and economic inactivity rates in the North East and North West for January–March 2026.
+
 ## Repository structure
 
 ```text
