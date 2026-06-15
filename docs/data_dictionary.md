@@ -44,3 +44,17 @@ Stores regional economic indicators in long format.
 | Workbook sheet | `Table 2a` |
 | Industry coverage | Manufacturing |
 | Purpose | Compares changes in manufacturing output across the two North East ITL2 subregions |
+
+## Indicator: `REAL_GVA_GBP_MILLION`
+
+| Attribute | Description |
+|---|---|
+| Geography | North East; North West |
+| Geography codes | `TLC`; `TLD` |
+| Frequency | Annual |
+| Coverage | 1998–2023 |
+| Unit | £ million, chained-volume measures in 2022 prices |
+| Source | ONS Regional gross value added balanced by industry |
+| Workbook sheet | `Table 1b` |
+| Industry coverage | All industries |
+| Purpose | Compares the real economic size of the North East and North West over time |
