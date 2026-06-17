@@ -20,6 +20,10 @@ from src.ne_investment.transform.ashe_earnings import (
     transform_ashe_earnings,
 )
 
+from src.ne_investment.transform.green_projects import (
+    transform_green_projects,
+)
+
 def test_north_east_gva_transformation():
     dataframe = transform_north_east_gva()
 
@@ -131,3 +135,16 @@ def test_ashe_earnings_transformation():
         "gbp_per_week",
         "gbp_per_hour",
     }
+
+
+def test_green_projects_transformation():
+    dataframe = transform_green_projects()
+
+    assert not dataframe.empty
+    assert dataframe["project_name"].notna().all()
+    assert dataframe["source_name"].notna().all()
+    assert dataframe["announcement_date"].notna().all()
+    assert dataframe["announced_value_gbp"].notna().all()
+    assert dataframe["jobs_announced"].notna().all()
+    assert dataframe["capacity_value"].notna().all()
+    assert len(dataframe) == 1

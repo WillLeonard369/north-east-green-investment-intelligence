@@ -109,3 +109,38 @@ SELECT
 FROM regional_earnings AS re
 JOIN geography AS g
     ON re.geography_id = g.geography_id;
+
+CREATE TABLE IF NOT EXISTS green_investment_projects (
+    project_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    project_name TEXT NOT NULL,
+    project_type TEXT NOT NULL,
+    sector TEXT NOT NULL,
+    technology_theme TEXT,
+    geography_id INTEGER,
+    location_name TEXT,
+    developer_name TEXT,
+    investor_name TEXT,
+    announcement_date TEXT,
+    expected_completion_date TEXT,
+    project_status TEXT,
+    announced_value_gbp REAL,
+    jobs_announced INTEGER,
+    capacity_value REAL,
+    capacity_unit TEXT,
+    source_id INTEGER NOT NULL,
+    source_url TEXT,
+    retrieved_at TEXT NOT NULL,
+    notes TEXT,
+
+    FOREIGN KEY (geography_id)
+        REFERENCES geography(geography_id),
+
+    FOREIGN KEY (source_id)
+        REFERENCES data_sources(source_id),
+
+    UNIQUE (
+        project_name,
+        developer_name,
+        announcement_date
+    )
+);

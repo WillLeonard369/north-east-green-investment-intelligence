@@ -111,3 +111,28 @@ SELECT
 FROM regional_earnings AS re
 JOIN geography AS g
     ON re.geography_id = g.geography_id;
+
+    CREATE VIEW IF NOT EXISTS green_investment_projects_view AS
+SELECT
+    gip.project_id,
+    gip.project_name,
+    gip.project_type,
+    gip.sector,
+    gip.technology_theme,
+    g.geography_code,
+    g.geography_name,
+    gip.location_name,
+    gip.developer_name,
+    gip.investor_name,
+    gip.announcement_date,
+    gip.expected_completion_date,
+    gip.project_status,
+    gip.announced_value_gbp,
+    gip.jobs_announced,
+    gip.capacity_value,
+    gip.capacity_unit,
+    gip.source_url,
+    gip.notes
+FROM green_investment_projects AS gip
+LEFT JOIN geography AS g
+    ON gip.geography_id = g.geography_id;
