@@ -24,8 +24,12 @@ REQUIRED_COLUMNS = {
     "announcement_date",
     "expected_completion_date",
     "project_status",
-    "announced_value_gbp",
-    "jobs_announced",
+    "regional_linkage_type",
+    "regional_linkage_strength",
+    "total_project_value_gbp",
+    "regional_value_gbp",
+    "total_jobs_announced",
+    "regional_jobs_announced",
     "capacity_value",
     "capacity_unit",
     "source_name",
@@ -45,41 +49,56 @@ def transform_green_projects() -> pd.DataFrame:
             f"Missing required project columns: {sorted(missing_columns)}"
         )
 
-    dataframe["announced_value_gbp"] = pd.to_numeric(
-        dataframe["announced_value_gbp"],
-        errors="coerce",
-    )
+    numeric_columns = [
+        "total_project_value_gbp",
+        "regional_value_gbp",
+        "total_jobs_announced",
+        "regional_jobs_announced",
+        "capacity_value",
+    ]
 
-    dataframe["jobs_announced"] = pd.to_numeric(
-        dataframe["jobs_announced"],
-        errors="coerce",
-    )
+    for column in numeric_columns:
+        dataframe[column] = pd.to_numeric(
+            dataframe[column],
+            errors="coerce",
+        )
 
-    dataframe["capacity_value"] = pd.to_numeric(
-        dataframe["capacity_value"],
-        errors="coerce",
-    )
+    date_columns = [
+        "announcement_date",
+        "expected_completion_date",
+        "retrieved_at",
+    ]
 
-    dataframe["announcement_date"] = pd.to_datetime(
-        dataframe["announcement_date"],
-        errors="coerce",
-    ).dt.strftime("%Y-%m-%d")
+    for column in date_columns:
+        dataframe[column] = pd.to_datetime(
+            dataframe[column],
+            errors="coerce",
+        ).dt.strftime("%Y-%m-%d")
 
-    dataframe["expected_completion_date"] = pd.to_datetime(
-        dataframe["expected_completion_date"],
-        errors="coerce",
-    ).dt.strftime("%Y-%m-%d")
+    required_non_null = [
+        "project_name",
+        "project_type",
+        "sector",
+        "project_status",
+        "regional_linkage_type",
+        "regional_linkage_strength",
+        "source_name",
+    ]
 
-    dataframe["retrieved_at"] = pd.to_datetime(
-        dataframe["retrieved_at"],
-        errors="coerce",
-    ).dt.strftime("%Y-%m-%d")
+    for column in required_non_null:
+        if dataframe[column].isna().any():
+            raise ValueError(f"Missing required values in {column}.")
 
-    if dataframe["project_name"].isna().any():
-        raise ValueError("Missing project names found.")
+    valid_strengths = {"direct", "significant", "indirect"}
 
-    if dataframe["source_name"].isna().any():
-        raise ValueError("Missing project source names found.")
+    invalid_strengths = set(
+        dataframe["regional_linkage_strength"].dropna().str.lower()
+    ).difference(valid_strengths)
+
+    if invalid_strengths:
+        raise ValueError(
+            f"Invalid regional linkage strengths: {sorted(invalid_strengths)}"
+        )
 
     if dataframe.duplicated(
         [

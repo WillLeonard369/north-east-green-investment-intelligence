@@ -85,8 +85,12 @@ def load_green_projects() -> None:
                     announcement_date,
                     expected_completion_date,
                     project_status,
-                    announced_value_gbp,
-                    jobs_announced,
+                    regional_linkage_type,
+                    regional_linkage_strength,
+                    total_project_value_gbp,
+                    regional_value_gbp,
+                    total_jobs_announced,
+                    regional_jobs_announced,
                     capacity_value,
                     capacity_unit,
                     source_id,
@@ -94,7 +98,10 @@ def load_green_projects() -> None:
                     retrieved_at,
                     notes
                 )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+                )
                 """,
                 (
                     row.project_name,
@@ -108,8 +115,12 @@ def load_green_projects() -> None:
                     row.announcement_date,
                     row.expected_completion_date,
                     row.project_status,
-                    row.announced_value_gbp,
-                    row.jobs_announced,
+                    row.regional_linkage_type,
+                    row.regional_linkage_strength,
+                    row.total_project_value_gbp,
+                    row.regional_value_gbp,
+                    row.total_jobs_announced,
+                    row.regional_jobs_announced,
                     row.capacity_value,
                     row.capacity_unit,
                     source_id,

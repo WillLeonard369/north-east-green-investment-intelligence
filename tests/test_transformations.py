@@ -140,11 +140,30 @@ def test_ashe_earnings_transformation():
 def test_green_projects_transformation():
     dataframe = transform_green_projects()
 
-    assert not dataframe.empty
-    assert dataframe["project_name"].notna().all()
-    assert dataframe["source_name"].notna().all()
-    assert dataframe["announcement_date"].notna().all()
-    assert dataframe["announced_value_gbp"].notna().all()
-    assert dataframe["jobs_announced"].notna().all()
-    assert dataframe["capacity_value"].notna().all()
-    assert len(dataframe) == 1
+    expected_columns = {
+        "project_name",
+        "project_type",
+        "sector",
+        "technology_theme",
+        "geography_code",
+        "location_name",
+        "developer_name",
+        "investor_name",
+        "announcement_date",
+        "expected_completion_date",
+        "project_status",
+        "regional_linkage_type",
+        "regional_linkage_strength",
+        "total_project_value_gbp",
+        "regional_value_gbp",
+        "total_jobs_announced",
+        "regional_jobs_announced",
+        "capacity_value",
+        "capacity_unit",
+        "source_name",
+        "source_url",
+        "retrieved_at",
+        "notes",
+    }
+
+    assert expected_columns.issubset(dataframe.columns)

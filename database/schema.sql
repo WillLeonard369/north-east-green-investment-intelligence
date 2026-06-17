@@ -123,8 +123,12 @@ CREATE TABLE IF NOT EXISTS green_investment_projects (
     announcement_date TEXT,
     expected_completion_date TEXT,
     project_status TEXT,
-    announced_value_gbp REAL,
-    jobs_announced INTEGER,
+    regional_linkage_type TEXT NOT NULL,
+regional_linkage_strength TEXT NOT NULL,
+total_project_value_gbp REAL,
+regional_value_gbp REAL,
+total_jobs_announced INTEGER,
+regional_jobs_announced INTEGER,
     capacity_value REAL,
     capacity_unit TEXT,
     source_id INTEGER NOT NULL,
@@ -144,3 +148,4 @@ CREATE TABLE IF NOT EXISTS green_investment_projects (
         announcement_date
     )
 );
+
