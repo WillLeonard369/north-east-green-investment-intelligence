@@ -4,6 +4,10 @@ from src.ne_investment.analysis.bres_employment_growth import (
     calculate_bres_employment_growth,
 )
 
+from src.ne_investment.analysis.ashe_earnings_gap import (
+    calculate_ashe_earnings_gap,
+)
+
 
 def test_gva_analysis_output():
     dataframe = analyse_gva()
@@ -29,3 +33,22 @@ def test_bres_employment_growth_output():
         "North West",
     }
     assert len(dataframe) == 34
+
+def test_ashe_earnings_gap_output():
+    dataframe = calculate_ashe_earnings_gap()
+
+    assert not dataframe.empty
+    assert {
+        "North East",
+        "North West",
+        "absolute_gap",
+        "north_east_gap_pct",
+    }.issubset(dataframe.columns)
+    assert dataframe["North East"].notna().all()
+    assert dataframe["North West"].notna().all()
+    assert dataframe["absolute_gap"].notna().all()
+    assert dataframe["north_east_gap_pct"].notna().all()
+    assert set(dataframe["indicator_code"].unique()) == {
+        "MEDIAN_WEEKLY_GROSS_PAY",
+        "MEDIAN_HOURLY_PAY_EXCL_OVERTIME",
+    }
