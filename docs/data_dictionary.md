@@ -80,3 +80,34 @@ Stores regional economic indicators in long format.
 | Source | ONS S01 Regional labour market summary |
 | Workbook sheet | `S01.1` |
 | Purpose | Compares current regional labour-market conditions across the North East and North West |
+
+## BRES industry employment
+
+The `industry_employment` table stores annual employment counts by region and industry.
+
+| Field | Description |
+|---|---|
+| `industry_employment_id` | Unique row identifier |
+| `geography_id` | Links the observation to the geography table |
+| `industry_code` | SIC-based industry code or broad industry group code |
+| `industry_name` | Industry description |
+| `period` | Observation year |
+| `frequency` | Annual |
+| `value` | Employment count |
+| `unit` | `employment_count` |
+| `source_id` | Links the observation to the source table |
+| `retrieved_at` | UTC timestamp showing when the data were loaded |
+
+### Source metadata
+
+| Attribute | Description |
+|---|---|
+| Geography | North East; North West |
+| Geography codes | `E12000001`; `E12000002` |
+| Coverage | 2015–2024 |
+| Frequency | Annual |
+| Measure | Employment count |
+| Employment status | Employment, including employees and working proprietors |
+| Source | Nomis Business Register and Employment Survey, open access |
+| Industries | Five broad sectors and twelve detailed green-relevant SIC divisions |
+| Purpose | Measures changes in employment across manufacturing, energy, construction, logistics, engineering and research-related industries |
