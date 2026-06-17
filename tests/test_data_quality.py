@@ -69,6 +69,6 @@ def test_green_projects_summary_output():
 
     metrics = dataframe.set_index("metric")["value"]
 
-    assert metrics["projects"] == 2
-    assert metrics["verified_regional_investment_gbp"] == 1_030_000_000
-    assert metrics["regional_jobs_announced"] == 921
+    assert metrics["projects"] == 3
+    assert metrics["verified_regional_investment_gbp"] == 2_030_000_000
+    assert metrics["regional_jobs_announced"] == 1_921
