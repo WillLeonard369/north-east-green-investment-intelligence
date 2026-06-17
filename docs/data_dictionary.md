@@ -148,3 +148,53 @@ The `regional_earnings` table stores annual workplace earnings estimates and the
 | Statistic | Median |
 | Source | Nomis Annual Survey of Hours and Earnings, workplace analysis |
 | Purpose | Compares regional wage levels and underlying labour costs over time |
+
+## Green investment projects
+
+The `green_investment_projects` table stores verified clean-energy and advanced-manufacturing investments with explicit regional-attribution fields.
+
+| Field | Description |
+|---|---|
+| `project_id` | Unique project identifier |
+| `project_name` | Project or facility name |
+| `project_type` | Type of investment, such as manufacturing facility or offshore wind development |
+| `sector` | Broad sector classification |
+| `technology_theme` | Technology focus, such as offshore wind supply chain |
+| `geography_id` | Links the project to the geography table |
+| `location_name` | Specific project location |
+| `developer_name` | Project developer or operating company |
+| `investor_name` | Named investor or parent group |
+| `announcement_date` | Public announcement date |
+| `expected_completion_date` | Expected completion or operating date |
+| `project_status` | Announced, under construction, operational, delayed or cancelled |
+| `regional_linkage_type` | Nature of the North East connection |
+| `regional_linkage_strength` | `direct`, `significant` or `indirect` |
+| `total_project_value_gbp` | Total value of the overall project |
+| `regional_value_gbp` | Value clearly attributable to the North East |
+| `total_jobs_announced` | Total jobs announced for the overall project |
+| `regional_jobs_announced` | Jobs clearly attributable to the North East |
+| `capacity_value` | Reported project or production capacity |
+| `capacity_unit` | Unit for the capacity figure |
+| `source_id` | Links the project to the source table |
+| `source_url` | Direct source link |
+| `retrieved_at` | Date the source was accessed |
+| `notes` | Additional attribution or methodology notes |
+
+### Regional-linkage types
+
+| Linkage type | Meaning |
+|---|---|
+| `PROJECT_LOCATION` | The main project is physically located in the North East |
+| `MANUFACTURING_SITE` | A manufacturing facility is located in the region |
+| `OPERATIONS_BASE` | Operations and maintenance activity is based in the region |
+| `PORT_INFRASTRUCTURE` | The project is linked through a regional port |
+| `GRID_CONNECTION` | The project connects to the grid in the region |
+| `SUPPLY_CHAIN` | Regional firms or facilities participate in the supply chain |
+| `HEADQUARTERS` | The company or project headquarters is in the region |
+| `RESEARCH_PARTNERSHIP` | The regional link is through research or innovation activity |
+
+### Attribution rule
+
+Total project value and jobs must not automatically be treated as North East investment.
+
+`regional_value_gbp` and `regional_jobs_announced` are populated only where a reliable source clearly attributes those values to the region. For direct manufacturing facilities such as SeAH Wind and JDR Cable Systems, total and regional values may be equal. For offshore projects with only an operations or supply-chain link, the regional fields may remain blank until a local figure is verified.
