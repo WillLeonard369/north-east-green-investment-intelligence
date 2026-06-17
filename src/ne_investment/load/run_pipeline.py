@@ -22,6 +22,11 @@ from src.ne_investment.load.ashe_earnings import (
     load_ashe_earnings,
 )
 
+from src.ne_investment.load.green_projects import (
+    load_green_projects,
+)
+
+
 def run_pipeline() -> None:
     create_database()
     load_regional_gva()
@@ -30,6 +35,7 @@ def run_pipeline() -> None:
     load_historical_labour_market()
     load_bres_employment()
     load_ashe_earnings()
+    load_green_projects()
     load_subregional_manufacturing()
 
     print("Pipeline completed successfully.")
