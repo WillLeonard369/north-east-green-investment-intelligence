@@ -1,0 +1,64 @@
+sectors:
+  clean_energy:
+    label: Clean Energy
+    technology_themes:
+      - Offshore wind
+      - Onshore wind
+      - Solar
+      - Hydrogen
+      - Carbon capture
+      - Energy storage
+      - Grid infrastructure
+
+  advanced_manufacturing:
+    label: Advanced Manufacturing
+    technology_themes:
+      - Offshore wind supply chain
+      - EV batteries
+      - Electrical equipment
+      - Machinery and equipment
+      - Transport equipment
+      - Fabricated metals
+      - Subsea cables
+
+  infrastructure:
+    label: Infrastructure
+    technology_themes:
+      - Port infrastructure
+      - Civil engineering
+      - Logistics
+      - Warehousing
+      - Grid connection
+      - Industrial sites
+
+  research_and_innovation:
+    label: Research and Innovation
+    technology_themes:
+      - Scientific research
+      - Engineering services
+      - Testing and certification
+      - University partnership
+      - Demonstration project
+
+regional_linkage_types:
+  - PROJECT_LOCATION
+  - MANUFACTURING_SITE
+  - OPERATIONS_BASE
+  - PORT_INFRASTRUCTURE
+  - GRID_CONNECTION
+  - SUPPLY_CHAIN
+  - HEADQUARTERS
+  - RESEARCH_PARTNERSHIP
+
+regional_linkage_strengths:
+  - direct
+  - significant
+  - indirect
+
+project_statuses:
+  - Announced
+  - Planning
+  - Under construction
+  - Operational
+  - Delayed
+  - Cancelled
