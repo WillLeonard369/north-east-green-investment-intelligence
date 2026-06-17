@@ -111,3 +111,40 @@ The `industry_employment` table stores annual employment counts by region and in
 | Source | Nomis Business Register and Employment Survey, open access |
 | Industries | Five broad sectors and twelve detailed green-relevant SIC divisions |
 | Purpose | Measures changes in employment across manufacturing, energy, construction, logistics, engineering and research-related industries |
+
+## ASHE regional earnings
+
+The `regional_earnings` table stores annual workplace earnings estimates and their reported confidence percentages.
+
+| Field | Description |
+|---|---|
+| `regional_earnings_id` | Unique row identifier |
+| `geography_id` | Links the observation to the geography table |
+| `indicator_code` | Standardised earnings measure |
+| `period` | Observation year |
+| `frequency` | Annual |
+| `value` | Earnings estimate |
+| `confidence_pct` | Standard error as a percentage of the estimate |
+| `unit` | `gbp_per_week` or `gbp_per_hour` |
+| `source_id` | Links the observation to the source table |
+| `retrieved_at` | UTC timestamp showing when the data were loaded |
+
+### Indicators
+
+| Indicator code | Description |
+|---|---|
+| `MEDIAN_WEEKLY_GROSS_PAY` | Median gross weekly pay for full-time workers |
+| `MEDIAN_HOURLY_PAY_EXCL_OVERTIME` | Median hourly pay excluding overtime for full-time workers |
+
+### Source metadata
+
+| Attribute | Description |
+|---|---|
+| Geography | North East; North West |
+| Geography codes | `E12000001`; `E12000002` |
+| Coverage | 1997 to latest available year |
+| Frequency | Annual |
+| Population | Full-time workers |
+| Statistic | Median |
+| Source | Nomis Annual Survey of Hours and Earnings, workplace analysis |
+| Purpose | Compares regional wage levels and underlying labour costs over time |
