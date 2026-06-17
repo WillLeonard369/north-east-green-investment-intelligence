@@ -74,6 +74,12 @@ This chart compares the seasonally adjusted rolling three-month employment rate 
 
 This chart shows the percentage shortfall in North East median gross weekly pay relative to the North West over time, using Nomis ASHE workplace earnings data for full-time workers.
 
+### Verified North East green-investment portfolio
+
+![Verified Green Projects Portfolio](reports/figures/verified_green_projects_portfolio.png)
+
+The current verified portfolio contains three direct regional investments representing £2.03 billion of North East-attributable investment and 1,921 announced jobs.
+
 ## Repository structure
 
 ```text
