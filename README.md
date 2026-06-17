@@ -62,6 +62,12 @@ This chart compares economic activity, employment, unemployment and economic ina
 
 This chart shows employment growth between 2015 and 2024 across selected broad sectors and green-relevant industries in the North East, using Nomis BRES workplace employment data.
 
+### Historical employment-rate comparison
+
+![Historical Employment Rate Comparison](reports/figures/historical_employment_rate_comparison.png)
+
+This chart compares the seasonally adjusted rolling three-month employment rate for people aged 16–64 in the North East and North West using Nomis Labour Force Survey data.
+
 ## Repository structure
 
 ```text
