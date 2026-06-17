@@ -250,3 +250,78 @@ regional_earnings_view
 supports comparison of wage levels and labour costs between the North East and North West over time.
 
 ASHE estimates are survey-based and should be interpreted alongside the reported confidence percentages, particularly when comparing smaller year-to-year movements.
+
+## Green investment projects extension
+
+The project includes a manually verified database of major clean-energy and advanced-manufacturing investments connected to North East England.
+
+The source file:
+
+```text
+data/reference/green_projects/project_template.csv
+
+stores one row per project and records:
+
+project type and technology theme;
+location;
+developer and investor;
+announcement and completion dates;
+project status;
+total project value and jobs;
+North East-attributable value and jobs;
+capacity;
+source details;
+attribution notes.
+
+The transformation script:
+
+src/ne_investment/transform/green_projects.py
+
+performs the following steps:
+
+checks that all required columns are present;
+converts investment, jobs and capacity fields to numeric values;
+standardises date fields;
+validates required project and source information;
+restricts regional-linkage strength to direct, significant or indirect;
+checks for duplicate project records.
+
+The loader script:
+
+src/ne_investment/load/green_projects.py
+
+stores the verified records in the green_investment_projects table.
+
+The resulting SQL view:
+
+green_investment_projects_view
+
+supports analysis of project location, technology, investment, employment and regional linkage.
+
+Regional attribution methodology
+
+Projects are not automatically treated as wholly attributable to the North East.
+
+Each record distinguishes between:
+
+total_project_value_gbp and regional_value_gbp;
+total_jobs_announced and regional_jobs_announced;
+the type of regional connection;
+the strength of that connection.
+
+A project receives a direct classification where the investment facility or principal project site is physically located in the region.
+
+A significant classification is used where the project has a major regional operations, port, grid or supply-chain connection but is not wholly located in the region.
+
+An indirect classification is used where the regional connection is limited or secondary.
+
+Regional investment and employment values are populated only when reliable sources explicitly support local attribution. Where only the overall project value is available, the regional fields remain blank rather than assuming the full value belongs to the North East.
+
+Current verified records
+
+The database currently includes:
+
+SeAH Wind’s offshore-wind monopile manufacturing facility at Teesworks;
+JDR Cable Systems’ subsea cable manufacturing facility at Cambois.
+
+Both are classified as direct North East manufacturing investments.
