@@ -68,6 +68,12 @@ This chart shows employment growth between 2015 and 2024 across selected broad s
 
 This chart compares the seasonally adjusted rolling three-month employment rate for people aged 16–64 in the North East and North West using Nomis Labour Force Survey data.
 
+### North East weekly earnings gap
+
+![North East Earnings Gap](reports/figures/north_east_earnings_gap.png)
+
+This chart shows the percentage shortfall in North East median gross weekly pay relative to the North West over time, using Nomis ASHE workplace earnings data for full-time workers.
+
 ## Repository structure
 
 ```text
