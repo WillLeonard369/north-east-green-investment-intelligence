@@ -97,3 +97,17 @@ SELECT
 FROM industry_employment AS ie
 JOIN geography AS g
     ON ie.geography_id = g.geography_id;
+
+CREATE VIEW IF NOT EXISTS regional_earnings_view AS
+SELECT
+    g.geography_code,
+    g.geography_name,
+    re.indicator_code,
+    re.period,
+    re.value,
+    re.confidence_pct,
+    re.unit,
+    re.frequency
+FROM regional_earnings AS re
+JOIN geography AS g
+    ON re.geography_id = g.geography_id;

@@ -69,3 +69,43 @@ CREATE TABLE IF NOT EXISTS industry_employment (
         source_id
     )
 );
+
+CREATE TABLE IF NOT EXISTS regional_earnings (
+    regional_earnings_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    geography_id INTEGER NOT NULL,
+    indicator_code TEXT NOT NULL,
+    period TEXT NOT NULL,
+    frequency TEXT NOT NULL,
+    value REAL NOT NULL,
+    confidence_pct REAL,
+    unit TEXT NOT NULL,
+    source_id INTEGER NOT NULL,
+    retrieved_at TEXT NOT NULL,
+
+    FOREIGN KEY (geography_id)
+        REFERENCES geography(geography_id),
+
+    FOREIGN KEY (source_id)
+        REFERENCES data_sources(source_id),
+
+    UNIQUE (
+        geography_id,
+        indicator_code,
+        period,
+        source_id
+    )
+);
+
+CREATE VIEW IF NOT EXISTS regional_earnings_view AS
+SELECT
+    g.geography_code,
+    g.geography_name,
+    re.indicator_code,
+    re.period,
+    re.value,
+    re.confidence_pct,
+    re.unit,
+    re.frequency
+FROM regional_earnings AS re
+JOIN geography AS g
+    ON re.geography_id = g.geography_id;

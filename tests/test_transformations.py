@@ -16,6 +16,9 @@ from src.ne_investment.transform.bres_employment import (
     transform_bres_employment,
 )
 
+from src.ne_investment.transform.ashe_earnings import (
+    transform_ashe_earnings,
+)
 
 def test_north_east_gva_transformation():
     dataframe = transform_north_east_gva()
@@ -107,3 +110,24 @@ def test_bres_employment_transformation():
     assert dataframe["unit"].eq("employment_count").all()
     assert dataframe["industry_code"].nunique() == 17
     assert len(dataframe) == 340
+
+
+def test_ashe_earnings_transformation():
+    dataframe = transform_ashe_earnings()
+
+    assert not dataframe.empty
+    assert set(dataframe["geography_code"].unique()) == {
+        "E12000001",
+        "E12000002",
+    }
+    assert set(dataframe["indicator_code"].unique()) == {
+        "MEDIAN_WEEKLY_GROSS_PAY",
+        "MEDIAN_HOURLY_PAY_EXCL_OVERTIME",
+    }
+    assert dataframe["value"].notna().all()
+    assert dataframe["period"].min() == "1997"
+    assert dataframe["frequency"].eq("annual").all()
+    assert set(dataframe["unit"].unique()) == {
+        "gbp_per_week",
+        "gbp_per_hour",
+    }
