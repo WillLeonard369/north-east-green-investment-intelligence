@@ -216,3 +216,37 @@ bres_industry_employment
 supports analysis of regional employment trends by sector and detailed industry.
 
 BRES provides point-in-time workplace employment estimates. ONS notes that it is not primarily designed as a continuous time-series dataset, so results should be interpreted carefully when comparing year-to-year changes.
+
+## ASHE regional earnings extension
+
+The project includes annual regional earnings data from the Nomis Annual Survey of Hours and Earnings workplace analysis.
+
+The transformation script:
+
+```text
+src/ne_investment/transform/ashe_earnings.py
+
+performs the following steps:
+
+reads the Nomis ASHE workbook;
+selects full-time workers;
+extracts the median weekly gross pay series;
+extracts the median hourly pay excluding overtime series;
+records North East and North West values separately;
+preserves the reported confidence percentage for each estimate;
+converts the data into long format;
+validates missing values and duplicate region-indicator-year combinations.
+
+The loader script:
+
+src/ne_investment/load/ashe_earnings.py
+
+stores the data in the regional_earnings table.
+
+The resulting SQL view:
+
+regional_earnings_view
+
+supports comparison of wage levels and labour costs between the North East and North West over time.
+
+ASHE estimates are survey-based and should be interpreted alongside the reported confidence percentages, particularly when comparing smaller year-to-year movements.
