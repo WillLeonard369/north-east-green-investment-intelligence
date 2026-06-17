@@ -165,3 +165,54 @@ The resulting SQL view:
 regional_gva_levels
 
 supports comparison of the absolute real GVA levels of the two regional economies over time.
+
+## BRES industry-employment extension
+
+The project includes annual industry-employment data from the Nomis Business Register and Employment Survey open-access dataset.
+
+The transformation script:
+
+```text
+src/ne_investment/transform/bres_employment.py
+
+performs the following steps:
+
+reads the Nomis BRES workbook;
+selects the Employment blocks for the North East and North West;
+excludes the narrower Employees blocks;
+extracts annual observations from 2015 to 2024;
+separates industry codes from industry descriptions;
+reshapes the data into long format;
+validates missing values and duplicate region-industry-year combinations.
+
+The selected industries include five broad sectors and twelve detailed divisions relevant to the green and advanced-manufacturing economy, including:
+
+manufacturing;
+construction;
+transport and storage;
+professional, scientific and technical activities;
+basic metals;
+fabricated metal products;
+electrical equipment;
+machinery and equipment;
+motor vehicles;
+other transport equipment;
+electricity and gas supply;
+civil engineering;
+warehousing and transport support;
+architectural and engineering activities;
+scientific research and development.
+
+The loader script:
+
+src/ne_investment/load/bres_employment.py
+
+stores the data in the industry_employment table.
+
+The resulting SQL view:
+
+bres_industry_employment
+
+supports analysis of regional employment trends by sector and detailed industry.
+
+BRES provides point-in-time workplace employment estimates. ONS notes that it is not primarily designed as a continuous time-series dataset, so results should be interpreted carefully when comparing year-to-year changes.
