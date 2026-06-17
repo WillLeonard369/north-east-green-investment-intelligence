@@ -30,9 +30,12 @@ REQUIRED_COLUMNS = {
     "project_status",
     "regional_linkage_type",
     "regional_linkage_strength",
-    "total_project_value_gbp",
-    "regional_value_gbp",
-    "total_jobs_announced",
+    "capital_investment_gbp",
+    "regional_capital_investment_gbp",
+    "regional_economic_impact_gbp",
+    "construction_jobs",
+    "operational_jobs",
+    "jobs_supported",
     "regional_jobs_announced",
     "capacity_value",
     "capacity_unit",
@@ -164,9 +167,12 @@ def transform_green_projects() -> pd.DataFrame:
         )
 
     numeric_columns = [
-        "total_project_value_gbp",
-        "regional_value_gbp",
-        "total_jobs_announced",
+        "capital_investment_gbp",
+        "regional_capital_investment_gbp",
+        "regional_economic_impact_gbp",
+        "construction_jobs",
+        "operational_jobs",
+        "jobs_supported",
         "regional_jobs_announced",
         "capacity_value",
     ]

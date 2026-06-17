@@ -87,9 +87,12 @@ def load_green_projects() -> None:
                     project_status,
                     regional_linkage_type,
                     regional_linkage_strength,
-                    total_project_value_gbp,
-                    regional_value_gbp,
-                    total_jobs_announced,
+                    capital_investment_gbp,
+                    regional_capital_investment_gbp,
+                    regional_economic_impact_gbp,
+                    construction_jobs,
+                    operational_jobs,
+                    jobs_supported,
                     regional_jobs_announced,
                     capacity_value,
                     capacity_unit,
@@ -100,7 +103,8 @@ def load_green_projects() -> None:
                 )
                 VALUES (
                     ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                    ?, ?, ?, ?
                 )
                 """,
                 (
@@ -117,9 +121,12 @@ def load_green_projects() -> None:
                     row.project_status,
                     row.regional_linkage_type,
                     row.regional_linkage_strength,
-                    row.total_project_value_gbp,
-                    row.regional_value_gbp,
-                    row.total_jobs_announced,
+                    row.capital_investment_gbp,
+                    row.regional_capital_investment_gbp,
+                    row.regional_economic_impact_gbp,
+                    row.construction_jobs,
+                    row.operational_jobs,
+                    row.jobs_supported,
                     row.regional_jobs_announced,
                     row.capacity_value,
                     row.capacity_unit,

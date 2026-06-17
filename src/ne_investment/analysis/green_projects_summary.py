@@ -18,37 +18,60 @@ def calculate_green_projects_summary() -> pd.DataFrame:
             location_name,
             regional_linkage_type,
             regional_linkage_strength,
-            regional_value_gbp,
+            regional_capital_investment_gbp,
+            regional_economic_impact_gbp,
+            construction_jobs,
+            operational_jobs,
+            jobs_supported,
             regional_jobs_announced,
             project_status
         FROM green_investment_projects_view
-        ORDER BY regional_value_gbp DESC
+        ORDER BY regional_capital_investment_gbp DESC
     """
 
     with sqlite3.connect(DATABASE_PATH) as connection:
         dataframe = pd.read_sql_query(query, connection)
 
-    dataframe["regional_value_gbp"] = pd.to_numeric(
-        dataframe["regional_value_gbp"],
-        errors="coerce",
-    )
+    numeric_columns = [
+        "regional_capital_investment_gbp",
+        "regional_economic_impact_gbp",
+        "construction_jobs",
+        "operational_jobs",
+        "jobs_supported",
+        "regional_jobs_announced",
+    ]
 
-    dataframe["regional_jobs_announced"] = pd.to_numeric(
-        dataframe["regional_jobs_announced"],
-        errors="coerce",
-    )
+    for column in numeric_columns:
+        dataframe[column] = pd.to_numeric(
+            dataframe[column],
+            errors="coerce",
+        )
 
     summary = pd.DataFrame(
         {
             "metric": [
                 "projects",
-                "verified_regional_investment_gbp",
+                "verified_regional_capital_investment_gbp",
+                "regional_economic_impact_gbp",
+                "construction_jobs",
+                "operational_jobs",
+                "jobs_supported",
                 "regional_jobs_announced",
             ],
             "value": [
                 len(dataframe),
-                dataframe["regional_value_gbp"].sum(min_count=1),
-                dataframe["regional_jobs_announced"].sum(min_count=1),
+                dataframe[
+                    "regional_capital_investment_gbp"
+                ].sum(min_count=1),
+                dataframe[
+                    "regional_economic_impact_gbp"
+                ].sum(min_count=1),
+                dataframe["construction_jobs"].sum(min_count=1),
+                dataframe["operational_jobs"].sum(min_count=1),
+                dataframe["jobs_supported"].sum(min_count=1),
+                dataframe[
+                    "regional_jobs_announced"
+                ].sum(min_count=1),
             ],
         }
     )
