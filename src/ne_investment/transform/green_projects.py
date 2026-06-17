@@ -138,6 +138,31 @@ def transform_green_projects() -> pd.DataFrame:
         taxonomy["project_statuses"],
     )
 
+    sector_theme_lookup = {
+        details["label"]: set(details["technology_themes"])
+        for details in taxonomy["sectors"].values()
+    }
+
+    invalid_sector_theme_pairs = []
+
+    for row in dataframe.itertuples(index=False):
+        valid_themes = sector_theme_lookup[row.sector]
+
+        if row.technology_theme not in valid_themes:
+            invalid_sector_theme_pairs.append(
+                {
+                    "project_name": row.project_name,
+                    "sector": row.sector,
+                    "technology_theme": row.technology_theme,
+                }
+            )
+
+    if invalid_sector_theme_pairs:
+        raise ValueError(
+            "Technology themes do not match their selected sectors: "
+            f"{invalid_sector_theme_pairs}"
+        )
+
     numeric_columns = [
         "total_project_value_gbp",
         "regional_value_gbp",
