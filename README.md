@@ -56,6 +56,12 @@ This chart compares manufacturing output trends in Tees Valley with Northumberla
 
 This chart compares economic activity, employment, unemployment and economic inactivity rates in the North East and North West for January–March 2026.
 
+### North East employment growth by industry
+
+![North East BRES Employment Growth](reports/figures/north_east_bres_employment_growth.png)
+
+This chart shows employment growth between 2015 and 2024 across selected broad sectors and green-relevant industries in the North East, using Nomis BRES workplace employment data.
+
 ## Repository structure
 
 ```text
