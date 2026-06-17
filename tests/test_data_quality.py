@@ -8,6 +8,9 @@ from src.ne_investment.analysis.ashe_earnings_gap import (
     calculate_ashe_earnings_gap,
 )
 
+from src.ne_investment.analysis.green_projects_summary import (
+    calculate_green_projects_summary,
+)
 
 def test_gva_analysis_output():
     dataframe = analyse_gva()
@@ -52,3 +55,20 @@ def test_ashe_earnings_gap_output():
         "MEDIAN_WEEKLY_GROSS_PAY",
         "MEDIAN_HOURLY_PAY_EXCL_OVERTIME",
     }
+
+
+def test_green_projects_summary_output():
+    dataframe = calculate_green_projects_summary()
+
+    assert not dataframe.empty
+    assert set(dataframe["metric"]) == {
+        "projects",
+        "verified_regional_investment_gbp",
+        "regional_jobs_announced",
+    }
+
+    metrics = dataframe.set_index("metric")["value"]
+
+    assert metrics["projects"] == 2
+    assert metrics["verified_regional_investment_gbp"] == 1_030_000_000
+    assert metrics["regional_jobs_announced"] == 921
