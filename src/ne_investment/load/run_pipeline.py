@@ -10,12 +10,17 @@ from src.ne_investment.load.regional_labour_market_snapshot import (
     load_regional_labour_market_snapshot,
 )
 
+from src.ne_investment.load.historical_labour_market import (
+    load_historical_labour_market,
+)
+
 
 def run_pipeline() -> None:
     create_database()
     load_regional_gva()
     load_regional_gva_levels()
     load_regional_labour_market_snapshot()
+    load_historical_labour_market()
     load_subregional_manufacturing()
 
     print("Pipeline completed successfully.")

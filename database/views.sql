@@ -63,3 +63,23 @@ WHERE e.indicator_code IN (
     'UNEMPLOYMENT_RATE',
     'ECONOMIC_INACTIVITY_RATE'
 );
+
+CREATE VIEW IF NOT EXISTS historical_regional_labour_market AS
+SELECT
+    g.geography_code,
+    g.geography_name,
+    e.indicator_code,
+    e.period,
+    e.value,
+    e.unit,
+    e.frequency
+FROM economic_observations AS e
+JOIN geography AS g
+    ON e.geography_id = g.geography_id
+WHERE e.frequency = 'rolling_3_month'
+  AND e.indicator_code IN (
+      'ECONOMIC_ACTIVITY_RATE',
+      'EMPLOYMENT_RATE',
+      'UNEMPLOYMENT_RATE',
+      'ECONOMIC_INACTIVITY_RATE'
+  );

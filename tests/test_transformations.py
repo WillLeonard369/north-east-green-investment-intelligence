@@ -8,6 +8,9 @@ from src.ne_investment.transform.regional_gva_levels import (
 from src.ne_investment.transform.regional_labour_market_snapshot import (
     transform_regional_labour_market_snapshot,
 )
+from src.ne_investment.transform.historical_labour_market import (
+    transform_historical_labour_market,
+)
 
 
 def test_north_east_gva_transformation():
@@ -62,3 +65,24 @@ def test_regional_labour_market_snapshot_transformation():
     assert dataframe["value"].notna().all()
     assert dataframe["period"].eq("2026-Q1").all()
     assert len(dataframe) == 8
+
+
+def test_historical_labour_market_transformation():
+    dataframe = transform_historical_labour_market()
+
+    assert not dataframe.empty
+    assert set(dataframe["geography_code"].unique()) == {
+        "E12000001",
+        "E12000002",
+    }
+    assert set(dataframe["indicator_code"].unique()) == {
+        "ECONOMIC_ACTIVITY_RATE",
+        "EMPLOYMENT_RATE",
+        "UNEMPLOYMENT_RATE",
+        "ECONOMIC_INACTIVITY_RATE",
+    }
+    assert dataframe["value"].notna().all()
+    assert dataframe["frequency"].eq("rolling_3_month").all()
+    assert dataframe["period"].str.match(
+        r"^[A-Z][a-z]{2} \d{4}-[A-Z][a-z]{2} \d{4}$"
+    ).all()
