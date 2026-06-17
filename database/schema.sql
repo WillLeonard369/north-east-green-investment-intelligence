@@ -43,3 +43,29 @@ CREATE TABLE IF NOT EXISTS economic_observations (
     )
 );
 
+
+CREATE TABLE IF NOT EXISTS industry_employment (
+    industry_employment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    geography_id INTEGER NOT NULL,
+    industry_code TEXT NOT NULL,
+    industry_name TEXT NOT NULL,
+    period TEXT NOT NULL,
+    frequency TEXT NOT NULL,
+    value REAL NOT NULL,
+    unit TEXT NOT NULL,
+    source_id INTEGER NOT NULL,
+    retrieved_at TEXT NOT NULL,
+
+    FOREIGN KEY (geography_id)
+        REFERENCES geography(geography_id),
+
+    FOREIGN KEY (source_id)
+        REFERENCES data_sources(source_id),
+
+    UNIQUE (
+        geography_id,
+        industry_code,
+        period,
+        source_id
+    )
+);

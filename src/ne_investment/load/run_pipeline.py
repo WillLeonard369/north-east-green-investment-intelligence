@@ -14,6 +14,9 @@ from src.ne_investment.load.historical_labour_market import (
     load_historical_labour_market,
 )
 
+from src.ne_investment.load.bres_employment import (
+    load_bres_employment,
+)
 
 def run_pipeline() -> None:
     create_database()
@@ -21,6 +24,7 @@ def run_pipeline() -> None:
     load_regional_gva_levels()
     load_regional_labour_market_snapshot()
     load_historical_labour_market()
+    load_bres_employment()
     load_subregional_manufacturing()
 
     print("Pipeline completed successfully.")

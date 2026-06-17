@@ -12,6 +12,10 @@ from src.ne_investment.transform.historical_labour_market import (
     transform_historical_labour_market,
 )
 
+from src.ne_investment.transform.bres_employment import (
+    transform_bres_employment,
+)
+
 
 def test_north_east_gva_transformation():
     dataframe = transform_north_east_gva()
@@ -86,3 +90,20 @@ def test_historical_labour_market_transformation():
     assert dataframe["period"].str.match(
         r"^[A-Z][a-z]{2} \d{4}-[A-Z][a-z]{2} \d{4}$"
     ).all()
+
+
+def test_bres_employment_transformation():
+    dataframe = transform_bres_employment()
+
+    assert not dataframe.empty
+    assert set(dataframe["geography_code"].unique()) == {
+        "E12000001",
+        "E12000002",
+    }
+    assert dataframe["value"].notna().all()
+    assert dataframe["period"].min() == "2015"
+    assert dataframe["period"].max() == "2024"
+    assert dataframe["frequency"].eq("annual").all()
+    assert dataframe["unit"].eq("employment_count").all()
+    assert dataframe["industry_code"].nunique() == 17
+    assert len(dataframe) == 340

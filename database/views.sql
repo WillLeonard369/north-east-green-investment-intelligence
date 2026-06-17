@@ -83,3 +83,17 @@ WHERE e.frequency = 'rolling_3_month'
       'UNEMPLOYMENT_RATE',
       'ECONOMIC_INACTIVITY_RATE'
   );
+
+  CREATE VIEW IF NOT EXISTS bres_industry_employment AS
+SELECT
+    g.geography_code,
+    g.geography_name,
+    ie.industry_code,
+    ie.industry_name,
+    ie.period,
+    ie.value,
+    ie.unit,
+    ie.frequency
+FROM industry_employment AS ie
+JOIN geography AS g
+    ON ie.geography_id = g.geography_id;
