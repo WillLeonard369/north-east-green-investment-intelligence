@@ -1,9 +1,11 @@
 from pathlib import Path
 
 import pandas as pd
+import yaml
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
+
 SOURCE_FILE = (
     PROJECT_ROOT
     / "data"
@@ -11,6 +13,8 @@ SOURCE_FILE = (
     / "green_projects"
     / "project_template.csv"
 )
+
+SECTORS_FILE = PROJECT_ROOT / "config" / "sectors.yml"
 
 REQUIRED_COLUMNS = {
     "project_name",
@@ -39,6 +43,48 @@ REQUIRED_COLUMNS = {
 }
 
 
+def load_sector_taxonomy() -> dict:
+    with SECTORS_FILE.open("r", encoding="utf-8") as file:
+        return yaml.safe_load(file)
+
+
+def canonicalise_values(
+    dataframe: pd.DataFrame,
+    column: str,
+    valid_values: list[str],
+) -> None:
+    canonical_lookup = {
+        value.strip().lower(): value
+        for value in valid_values
+    }
+
+    supplied_values = (
+        dataframe[column]
+        .dropna()
+        .astype(str)
+        .str.strip()
+    )
+
+    invalid_values = {
+        value
+        for value in supplied_values
+        if value.lower() not in canonical_lookup
+    }
+
+    if invalid_values:
+        raise ValueError(
+            f"Invalid values in {column}: {sorted(invalid_values)}"
+        )
+
+    dataframe[column] = dataframe[column].apply(
+        lambda value: (
+            canonical_lookup[str(value).strip().lower()]
+            if pd.notna(value)
+            else value
+        )
+    )
+
+
 def transform_green_projects() -> pd.DataFrame:
     dataframe = pd.read_csv(SOURCE_FILE)
 
@@ -48,6 +94,49 @@ def transform_green_projects() -> pd.DataFrame:
         raise ValueError(
             f"Missing required project columns: {sorted(missing_columns)}"
         )
+
+    taxonomy = load_sector_taxonomy()
+
+    valid_sectors = [
+        details["label"]
+        for details in taxonomy["sectors"].values()
+    ]
+
+    valid_technology_themes = [
+        theme
+        for details in taxonomy["sectors"].values()
+        for theme in details["technology_themes"]
+    ]
+
+    canonicalise_values(
+        dataframe,
+        "sector",
+        valid_sectors,
+    )
+
+    canonicalise_values(
+        dataframe,
+        "technology_theme",
+        valid_technology_themes,
+    )
+
+    canonicalise_values(
+        dataframe,
+        "regional_linkage_type",
+        taxonomy["regional_linkage_types"],
+    )
+
+    canonicalise_values(
+        dataframe,
+        "regional_linkage_strength",
+        taxonomy["regional_linkage_strengths"],
+    )
+
+    canonicalise_values(
+        dataframe,
+        "project_status",
+        taxonomy["project_statuses"],
+    )
 
     numeric_columns = [
         "total_project_value_gbp",
@@ -79,6 +168,7 @@ def transform_green_projects() -> pd.DataFrame:
         "project_name",
         "project_type",
         "sector",
+        "technology_theme",
         "project_status",
         "regional_linkage_type",
         "regional_linkage_strength",
@@ -88,17 +178,6 @@ def transform_green_projects() -> pd.DataFrame:
     for column in required_non_null:
         if dataframe[column].isna().any():
             raise ValueError(f"Missing required values in {column}.")
-
-    valid_strengths = {"direct", "significant", "indirect"}
-
-    invalid_strengths = set(
-        dataframe["regional_linkage_strength"].dropna().str.lower()
-    ).difference(valid_strengths)
-
-    if invalid_strengths:
-        raise ValueError(
-            f"Invalid regional linkage strengths: {sorted(invalid_strengths)}"
-        )
 
     if dataframe.duplicated(
         [
