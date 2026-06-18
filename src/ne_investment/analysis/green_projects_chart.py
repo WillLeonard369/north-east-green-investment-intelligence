@@ -19,27 +19,34 @@ def create_green_projects_chart() -> None:
     query = """
         SELECT
             project_name,
-            regional_value_gbp,
+            regional_capital_investment_gbp,
             regional_jobs_announced
         FROM green_investment_projects_view
-        WHERE regional_value_gbp IS NOT NULL
-        ORDER BY regional_value_gbp ASC
+        WHERE regional_capital_investment_gbp IS NOT NULL
+        ORDER BY regional_capital_investment_gbp ASC
     """
 
     with sqlite3.connect(DATABASE_PATH) as connection:
         dataframe = pd.read_sql_query(query, connection)
 
-    dataframe["regional_value_gbp_millions"] = (
-        dataframe["regional_value_gbp"] / 1_000_000
+    if dataframe.empty:
+        raise ValueError(
+            "No projects with verified regional capital investment were found."
+        )
+
+    dataframe["regional_capital_investment_gbp_millions"] = (
+        dataframe["regional_capital_investment_gbp"] / 1_000_000
     )
 
     plt.figure(figsize=(11, 6))
+
     plt.barh(
         dataframe["project_name"],
-        dataframe["regional_value_gbp_millions"],
+        dataframe["regional_capital_investment_gbp_millions"],
     )
+
     plt.title("Verified North East Green Investment Projects")
-    plt.xlabel("Verified regional investment (£ million)")
+    plt.xlabel("Verified regional capital investment (£ million)")
     plt.ylabel("")
     plt.tight_layout()
     plt.savefig(OUTPUT_PATH, dpi=300)
