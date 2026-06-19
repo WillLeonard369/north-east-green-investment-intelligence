@@ -89,6 +89,7 @@ def load_green_projects() -> None:
                     regional_linkage_strength,
                     capital_investment_gbp,
                     regional_capital_investment_gbp,
+                    capital_value_status,
                     regional_economic_impact_gbp,
                     construction_jobs,
                     operational_jobs,
@@ -104,7 +105,7 @@ def load_green_projects() -> None:
                 VALUES (
                     ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
                     ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-                    ?, ?, ?, ?
+                    ?, ?, ?, ?, ?
                 )
                 """,
                 (
@@ -123,6 +124,7 @@ def load_green_projects() -> None:
                     row.regional_linkage_strength,
                     row.capital_investment_gbp,
                     row.regional_capital_investment_gbp,
+                    row.capital_value_status,
                     row.regional_economic_impact_gbp,
                     row.construction_jobs,
                     row.operational_jobs,

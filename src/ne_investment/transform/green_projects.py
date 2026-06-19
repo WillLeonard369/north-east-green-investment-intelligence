@@ -43,6 +43,7 @@ REQUIRED_COLUMNS = {
     "source_url",
     "retrieved_at",
     "notes",
+    "capital_value_status",
 }
 
 
@@ -68,6 +69,10 @@ def canonicalise_values(
         .str.strip()
     )
 
+    supplied_values = supplied_values[
+        supplied_values.ne("")
+    ]
+
     invalid_values = {
         value
         for value in supplied_values
@@ -82,7 +87,7 @@ def canonicalise_values(
     dataframe[column] = dataframe[column].apply(
         lambda value: (
             canonical_lookup[str(value).strip().lower()]
-            if pd.notna(value)
+            if pd.notna(value) and str(value).strip()
             else value
         )
     )

@@ -123,17 +123,23 @@ CREATE TABLE IF NOT EXISTS green_investment_projects (
     announcement_date TEXT,
     expected_completion_date TEXT,
     project_status TEXT,
+
     regional_linkage_type TEXT NOT NULL,
-regional_linkage_strength TEXT NOT NULL,
-capital_investment_gbp REAL,
-regional_capital_investment_gbp REAL,
-regional_economic_impact_gbp REAL,
-construction_jobs INTEGER,
-operational_jobs INTEGER,
-jobs_supported INTEGER,
-regional_jobs_announced INTEGER,
+    regional_linkage_strength TEXT NOT NULL,
+
+    capital_investment_gbp REAL,
+    regional_capital_investment_gbp REAL,
+    capital_value_status TEXT,
+    regional_economic_impact_gbp REAL,
+
+    construction_jobs INTEGER,
+    operational_jobs INTEGER,
+    jobs_supported INTEGER,
+    regional_jobs_announced INTEGER,
+
     capacity_value REAL,
     capacity_unit TEXT,
+
     source_id INTEGER NOT NULL,
     source_url TEXT,
     retrieved_at TEXT NOT NULL,
@@ -144,6 +150,15 @@ regional_jobs_announced INTEGER,
 
     FOREIGN KEY (source_id)
         REFERENCES data_sources(source_id),
+
+    CHECK (
+        capital_value_status IS NULL
+        OR capital_value_status IN (
+            'committed',
+            'estimated',
+            'potential'
+        )
+    ),
 
     UNIQUE (
         project_name,

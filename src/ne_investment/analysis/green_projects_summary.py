@@ -12,21 +12,14 @@ def calculate_green_projects_summary() -> pd.DataFrame:
     query = """
         SELECT
             project_name,
-            project_type,
-            sector,
-            technology_theme,
-            location_name,
-            regional_linkage_type,
-            regional_linkage_strength,
+            capital_value_status,
             regional_capital_investment_gbp,
             regional_economic_impact_gbp,
             construction_jobs,
             operational_jobs,
             jobs_supported,
-            regional_jobs_announced,
-            project_status
+            regional_jobs_announced
         FROM green_investment_projects_view
-        ORDER BY regional_capital_investment_gbp DESC
     """
 
     with sqlite3.connect(DATABASE_PATH) as connection:
@@ -47,11 +40,28 @@ def calculate_green_projects_summary() -> pd.DataFrame:
             errors="coerce",
         )
 
+    committed_capital = dataframe.loc[
+        dataframe["capital_value_status"] == "committed",
+        "regional_capital_investment_gbp",
+    ].sum(min_count=1)
+
+    estimated_capital = dataframe.loc[
+        dataframe["capital_value_status"] == "estimated",
+        "regional_capital_investment_gbp",
+    ].sum(min_count=1)
+
+    potential_capital = dataframe.loc[
+        dataframe["capital_value_status"] == "potential",
+        "regional_capital_investment_gbp",
+    ].sum(min_count=1)
+
     summary = pd.DataFrame(
         {
             "metric": [
                 "projects",
-                "verified_regional_capital_investment_gbp",
+                "committed_regional_capital_investment_gbp",
+                "estimated_regional_capital_investment_gbp",
+                "potential_regional_capital_investment_gbp",
                 "regional_economic_impact_gbp",
                 "construction_jobs",
                 "operational_jobs",
@@ -60,9 +70,9 @@ def calculate_green_projects_summary() -> pd.DataFrame:
             ],
             "value": [
                 len(dataframe),
-                dataframe[
-                    "regional_capital_investment_gbp"
-                ].sum(min_count=1),
+                committed_capital,
+                estimated_capital,
+                potential_capital,
                 dataframe[
                     "regional_economic_impact_gbp"
                 ].sum(min_count=1),
