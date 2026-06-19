@@ -3,20 +3,32 @@ import sqlite3
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
-DATABASE_PATH = PROJECT_ROOT / "data" / "processed" / "ne_investment.db"
+
+DATABASE_PATH = (
+    PROJECT_ROOT
+    / "data"
+    / "processed"
+    / "ne_investment.db"
+)
+
 SCHEMA_PATH = PROJECT_ROOT / "database" / "schema.sql"
 VIEWS_PATH = PROJECT_ROOT / "database" / "views.sql"
 
 
 def create_database() -> None:
-    DATABASE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    DATABASE_PATH.parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    schema = SCHEMA_PATH.read_text(encoding="utf-8")
+    views = VIEWS_PATH.read_text(encoding="utf-8")
 
     with sqlite3.connect(DATABASE_PATH) as connection:
-        schema = SCHEMA_PATH.read_text(encoding="utf-8")
-        views = VIEWS_PATH.read_text(encoding="utf-8")
-
+        connection.execute("PRAGMA foreign_keys = ON;")
         connection.executescript(schema)
         connection.executescript(views)
+        connection.commit()
 
     print(f"Database created at: {DATABASE_PATH}")
 
