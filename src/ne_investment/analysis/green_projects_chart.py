@@ -23,6 +23,7 @@ def create_green_projects_chart() -> None:
             regional_jobs_announced
         FROM green_investment_projects_view
         WHERE regional_capital_investment_gbp IS NOT NULL
+  AND capital_value_status = 'committed'
         ORDER BY regional_capital_investment_gbp ASC
     """
 
@@ -45,7 +46,7 @@ def create_green_projects_chart() -> None:
         dataframe["regional_capital_investment_gbp_millions"],
     )
 
-    plt.title("Verified North East Green Investment Projects")
+    plt.title("Committed North East Green Investment Projects")
     plt.xlabel("Verified regional capital investment (£ million)")
     plt.ylabel("")
     plt.tight_layout()

@@ -74,12 +74,12 @@ This chart compares the seasonally adjusted rolling three-month employment rate 
 
 This chart shows the percentage shortfall in North East median gross weekly pay relative to the North West over time, using Nomis ASHE workplace earnings data for full-time workers.
 
-### Verified North East green-investment portfolio
+
 ### Verified North East green-investment portfolio
 
 ![Verified Green Projects Portfolio](reports/figures/verified_green_projects_portfolio.png)
 
-The current verified portfolio contains four direct regional projects. Three have a separately verified regional capital-investment value, totalling £2.03 billion. Net Zero Teesside Power is included in the portfolio, but its standalone capital value remains blank because the widely reported £4 billion construction-contract figure also includes the Northern Endurance Partnership.
+The current verified portfolio contains six direct regional projects. Five have separately verified regional capital-investment values totalling £2.28 billion. Net Zero Teesside Power remains included without a standalone capital value because the widely reported £4 billion construction-contract figure also includes the Northern Endurance Partnership.
 
 ## Repository structure
 
