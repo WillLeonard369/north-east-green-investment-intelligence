@@ -1,0 +1,9 @@
+sector,technology_theme,projects,committed_regional_capital_gbp,potential_regional_capital_gbp,regional_economic_impact_gbp,construction_jobs,operational_jobs,jobs_supported,regional_jobs_announced,low_risk_projects,medium_risk_projects,high_risk_projects
+Advanced Manufacturing,Offshore wind supply chain,4,1030000000.0,,,250.0,954.0,,1204.0,3,1,0
+Advanced Manufacturing,EV batteries,1,1000000000.0,,,,1000.0,,1000.0,1,0,0
+Infrastructure,Port infrastructure,3,250000000.0,,,,200.0,12000.0,12200.0,1,2,0
+Infrastructure,Offshore wind research and testing,1,85600000.0,,,,30.0,,30.0,1,0,0
+Clean Energy,Hydrogen,2,,2000000000.0,200000000.0,,100.0,,100.0,0,1,1
+Clean Energy,Carbon capture,1,,,,3000.0,,1000.0,4000.0,1,0,0
+Clean Energy,Energy recovery,1,,,,700.0,50.0,,750.0,1,0,0
+Clean Energy,Offshore wind,1,,,62200000.0,,,,,1,0,0

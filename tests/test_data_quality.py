@@ -15,6 +15,10 @@ from src.ne_investment.analysis.green_projects_summary import (
     calculate_green_projects_summary,
 )
 
+from src.ne_investment.analysis.green_projects_sector_summary import (
+    calculate_green_projects_sector_summary,
+)
+
 
 def test_gva_analysis_output():
     dataframe = analyse_gva()
@@ -112,4 +116,32 @@ def test_green_projects_summary_output():
     assert metrics["operational_jobs"] == 2_334
     assert metrics["jobs_supported"] == 13_000
     assert metrics["regional_jobs_announced"] == 19_284
+
+
+def test_green_projects_sector_summary_output():
+    dataframe = calculate_green_projects_sector_summary()
+
+    assert not dataframe.empty
+
+    expected_columns = {
+        "sector",
+        "technology_theme",
+        "projects",
+        "committed_regional_capital_gbp",
+        "potential_regional_capital_gbp",
+        "regional_economic_impact_gbp",
+        "construction_jobs",
+        "operational_jobs",
+        "jobs_supported",
+        "regional_jobs_announced",
+        "low_risk_projects",
+        "medium_risk_projects",
+        "high_risk_projects",
+    }
+
+    assert expected_columns.issubset(dataframe.columns)
+    assert dataframe["projects"].sum() == 14
+    assert dataframe["low_risk_projects"].sum() == 9
+    assert dataframe["medium_risk_projects"].sum() == 4
+    assert dataframe["high_risk_projects"].sum() == 1
     
