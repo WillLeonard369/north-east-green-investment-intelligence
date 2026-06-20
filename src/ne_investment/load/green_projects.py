@@ -85,6 +85,9 @@ def load_green_projects() -> None:
                     announcement_date,
                     expected_completion_date,
                     project_status,
+                    delivery_risk_rating,
+                    delivery_risk_category,
+                    delivery_risk_notes,
                     regional_linkage_type,
                     regional_linkage_strength,
                     capital_investment_gbp,
@@ -103,9 +106,9 @@ def load_green_projects() -> None:
                     notes
                 )
                 VALUES (
-                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-                    ?, ?, ?, ?, ?
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
                 )
                 """,
                 (
@@ -120,6 +123,9 @@ def load_green_projects() -> None:
                     row.announcement_date,
                     row.expected_completion_date,
                     row.project_status,
+                    row.delivery_risk_rating,
+                    row.delivery_risk_category,
+                    row.delivery_risk_notes,
                     row.regional_linkage_type,
                     row.regional_linkage_strength,
                     row.capital_investment_gbp,
@@ -148,3 +154,4 @@ def load_green_projects() -> None:
 
 if __name__ == "__main__":
     load_green_projects()
+

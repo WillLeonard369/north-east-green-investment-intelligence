@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS data_sources (
     accessed_at TEXT NOT NULL
 );
 
+
 CREATE TABLE IF NOT EXISTS geography (
     geography_id INTEGER PRIMARY KEY AUTOINCREMENT,
     geography_code TEXT NOT NULL UNIQUE,
@@ -17,6 +18,7 @@ CREATE TABLE IF NOT EXISTS geography (
     geography_type TEXT NOT NULL,
     parent_code TEXT
 );
+
 
 CREATE TABLE IF NOT EXISTS economic_observations (
     observation_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -70,6 +72,7 @@ CREATE TABLE IF NOT EXISTS industry_employment (
     )
 );
 
+
 CREATE TABLE IF NOT EXISTS regional_earnings (
     regional_earnings_id INTEGER PRIMARY KEY AUTOINCREMENT,
     geography_id INTEGER NOT NULL,
@@ -96,19 +99,6 @@ CREATE TABLE IF NOT EXISTS regional_earnings (
     )
 );
 
-CREATE VIEW IF NOT EXISTS regional_earnings_view AS
-SELECT
-    g.geography_code,
-    g.geography_name,
-    re.indicator_code,
-    re.period,
-    re.value,
-    re.confidence_pct,
-    re.unit,
-    re.frequency
-FROM regional_earnings AS re
-JOIN geography AS g
-    ON re.geography_id = g.geography_id;
 
 CREATE TABLE IF NOT EXISTS green_investment_projects (
     project_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -116,13 +106,20 @@ CREATE TABLE IF NOT EXISTS green_investment_projects (
     project_type TEXT NOT NULL,
     sector TEXT NOT NULL,
     technology_theme TEXT,
+
     geography_id INTEGER,
     location_name TEXT,
+
     developer_name TEXT,
     investor_name TEXT,
+
     announcement_date TEXT,
     expected_completion_date TEXT,
     project_status TEXT,
+
+    delivery_risk_rating TEXT,
+    delivery_risk_category TEXT,
+    delivery_risk_notes TEXT,
 
     regional_linkage_type TEXT NOT NULL,
     regional_linkage_strength TEXT NOT NULL,
@@ -152,6 +149,15 @@ CREATE TABLE IF NOT EXISTS green_investment_projects (
         REFERENCES data_sources(source_id),
 
     CHECK (
+        delivery_risk_rating IS NULL
+        OR delivery_risk_rating IN (
+            'low',
+            'medium',
+            'high'
+        )
+    ),
+
+    CHECK (
         capital_value_status IS NULL
         OR capital_value_status IN (
             'committed',
@@ -166,4 +172,5 @@ CREATE TABLE IF NOT EXISTS green_investment_projects (
         announcement_date
     )
 );
+
 

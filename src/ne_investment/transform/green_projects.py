@@ -44,6 +44,10 @@ REQUIRED_COLUMNS = {
     "retrieved_at",
     "notes",
     "capital_value_status",
+    "delivery_risk_rating",
+    "delivery_risk_category",
+    "delivery_risk_notes",
+
 }
 
 
@@ -61,6 +65,7 @@ def canonicalise_values(
         value.strip().lower(): value
         for value in valid_values
     }
+
 
     supplied_values = (
         dataframe[column]
@@ -122,6 +127,7 @@ def transform_green_projects() -> pd.DataFrame:
         valid_sectors,
     )
 
+
     canonicalise_values(
         dataframe,
         "technology_theme",
@@ -144,6 +150,12 @@ def transform_green_projects() -> pd.DataFrame:
         dataframe,
         "project_status",
         taxonomy["project_statuses"],
+    )
+
+    canonicalise_values(
+        dataframe,
+        "delivery_risk_rating",
+        ["low", "medium", "high"],
     )
 
     sector_theme_lookup = {
@@ -209,6 +221,8 @@ def transform_green_projects() -> pd.DataFrame:
         "regional_linkage_type",
         "regional_linkage_strength",
         "source_name",
+        "delivery_risk_rating",
+"delivery_risk_category",
     ]
 
     for column in required_non_null:
