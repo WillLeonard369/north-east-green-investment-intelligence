@@ -2,6 +2,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 import sqlite3
 
+import pandas as pd
+
 from src.ne_investment.transform.green_projects import (
     transform_green_projects,
 )
@@ -31,6 +33,15 @@ def load_green_projects() -> None:
         loaded_rows = 0
 
         for row in dataframe.itertuples(index=False):
+            source_accessed_at = (
+                str(row.retrieved_at).strip()
+                if (
+                    pd.notna(row.retrieved_at)
+                    and str(row.retrieved_at).strip()
+                )
+                else retrieved_at
+            )
+
             cursor.execute(
                 """
                 SELECT source_id
@@ -64,7 +75,7 @@ def load_green_projects() -> None:
                         row.source_name,
                         row.source_url,
                         None,
-                        row.retrieved_at or retrieved_at,
+                        source_accessed_at,
                     ),
                 )
                 source_id = cursor.lastrowid
@@ -140,7 +151,7 @@ def load_green_projects() -> None:
                     row.capacity_unit,
                     source_id,
                     row.source_url,
-                    row.retrieved_at or retrieved_at,
+                    source_accessed_at,
                     row.notes,
                 ),
             )
@@ -154,4 +165,5 @@ def load_green_projects() -> None:
 
 if __name__ == "__main__":
     load_green_projects()
+
 
