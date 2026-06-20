@@ -10,6 +10,7 @@ sectors:
       - Energy storage
       - Grid infrastructure
       - Energy recovery
+      
 
   advanced_manufacturing:
     label: Advanced Manufacturing
@@ -31,6 +32,7 @@ sectors:
       - Warehousing
       - Grid connection
       - Industrial sites
+      - Offshore wind research and testing
 
   research_and_innovation:
     label: Research and Innovation
@@ -50,6 +52,7 @@ regional_linkage_types:
   - SUPPLY_CHAIN
   - HEADQUARTERS
   - RESEARCH_PARTNERSHIP
+  - RESEARCH_INFRASTRUCTURE
 
 regional_linkage_strengths:
   - direct
