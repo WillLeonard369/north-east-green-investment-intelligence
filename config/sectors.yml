@@ -9,6 +9,7 @@ sectors:
       - Carbon capture
       - Energy storage
       - Grid infrastructure
+      - Energy recovery
 
   advanced_manufacturing:
     label: Advanced Manufacturing
